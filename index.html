@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tribute to Lite Brite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(to bottom, rgb(27, 32, 42), rgb(24, 23, 37), rgb(27, 32, 42));
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-content {
+            width: 100vw;
+            height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1vh 1vh 1vh 2vh;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .header {
+                flex-direction: row;
+                padding: 1svh 5svh 1svh 5svh;
+            }
+        }
+
+        .title-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5svh;
+        }
+
+        @media (min-width: 768px) {
+            .title-section {
+                align-items: flex-start;
+                gap: 0;
+            }
+        }
+
+        .title {
+            font-size: 3svh;
+            font-weight: bold;
+            color: #f894ff;
+            font-family: "Quicksand", sans-serif;
+        }
+
+        .subtitle {
+            font-size: 1.5svh;
+            font-weight: bold;
+            color: cyan;
+            font-family: "Quicksand", sans-serif;
+        }
+
+        .color-palette {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 1vh;
+            padding: 0 2vh;
+            font-family: "Quicksand", sans-serif;
+            font-size: 2vh;
+            font-weight: 600;
+        }
+
+        @media (min-width: 768px) {
+            .color-palette {
+                width: fit-content;
+                gap: 2vh;
+            }
+        }
+
+        .color-label {
+            color: #67e8f9;
+        }
+
+        .color-button {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            transition: all 0.2s ease-in-out;
+            transform: scale(1.0);
+            border: 2px solid #FFF;
+            cursor: pointer;
+            min-width: 2vh;
+            min-height: 2vh;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (min-width: 768px) {
+            .color-button {
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+
+        .color-button.selected {
+            border: 4px solid #333;
+            transform: scale(1.15);
+        }
+
+        .clear-button {
+            color: black;
+            font-weight: bold;
+            padding: 0.1vh 2vh;
+            border-radius: 3vh;
+            font-size: 1.6vh;
+            transition: all 0.2s ease-in-out;
+            background-color: #f894ff;
+            border: 2px solid #f894ff;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 0 10px rgb(52, 41, 53);
+            text-shadow: 0 0 10px #f894ff;
+            transform: scale(1.1);
+            font-family: "Quicksand", sans-serif;
+        }
+
+        .board-container {
+            width: 96%;
+            height: 75svh;
+            overflow: visible;
+        }
+
+        @media (min-width: 768px) {
+            .board-container {
+                height: 90vh;
+            }
+        }
+
+        .board-svg {
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+            overflow: visible;
+        }
+
+        .peg {
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+        }
+
+        .peg:hover {
+            stroke: rgba(255, 255, 255, 0.75);
+            stroke-width: 2;
+        }
+
+        .peg-hole:hover {
+            fill: #444;
+        }
+
+        @media (max-width: 767px) {
+            .peg {
+                transform: scale(1.25);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main-content">
+            <div class="header">
+                <div class="title-section">
+                    <span class="title">Tribute to Lite Brite</span>
+                    <span class="subtitle">Evan Marie Carr: https://github.com/EvanMarie</span>
+                </div>
+                <div class="color-palette">
+                    <span class="color-label">colors:</span>
+                    <button class="color-button selected" data-color="#FFFFFF" title="White"></button>
+                    <button class="color-button" data-color="#FF69B4" title="Hot Pink"></button>
+                    <button class="color-button" data-color="#FF0000" title="Red"></button>
+                    <button class="color-button" data-color="#FFA500" title="Orange"></button>
+                    <button class="color-button" data-color="#FFD700" title="Gold"></button>
+                    <button class="color-button" data-color="#7CFC00" title="Lawn Green"></button>
+                    <button class="color-button" data-color="#00BFFF" title="Deep Sky Blue"></button>
+                    <button class="color-button" data-color="#9370DB" title="Medium Purple"></button>
+                </div>
+                <button class="clear-button" onclick="clearBoard()">Clear Board</button>
+            </div>
+            <div class="board-container" id="boardContainer">
+                <svg class="board-svg" id="boardSvg" viewBox="0 0 100 100">
+                    <defs>
+                        <radialGradient id="grad-hole">
+                            <stop offset="0%" stop-color="#0f1f2a" />
+                            <stop offset="85%" stop-color="#050a0f" />
+                        </radialGradient>
+                        <radialGradient id="grad-FFFFFF">
+                            <stop offset="0%" stop-color="#FFFFFF" />
+                            <stop offset="100%" stop-color="#FFFFFF" />
+                        </radialGradient>
+                        <radialGradient id="grad-FF69B4">
+                            <stop offset="0%" stop-color="#FF69B4" />
+                            <stop offset="100%" stop-color="#FF69B4" />
+                        </radialGradient>
+                        <radialGradient id="grad-FF0000">
+                            <stop offset="0%" stop-color="#FF0000" />
+                            <stop offset="100%" stop-color="#FF0000" />
+                        </radialGradient>
+                        <radialGradient id="grad-FFA500">
+                            <stop offset="0%" stop-color="#FFA500" />
+                            <stop offset="100%" stop-color="#FFA500" />
+                        </radialGradient>
+                        <radialGradient id="grad-FFD700">
+                            <stop offset="0%" stop-color="#FFD700" />
+                            <stop offset="100%" stop-color="#FFD700" />
+                        </radialGradient>
+                        <radialGradient id="grad-7CFC00">
+                            <stop offset="0%" stop-color="#7CFC00" />
+                            <stop offset="100%" stop-color="#7CFC00" />
+                        </radialGradient>
+                        <radialGradient id="grad-00BFFF">
+                            <stop offset="0%" stop-color="#00BFFF" />
+                            <stop offset="100%" stop-color="#00BFFF" />
+                        </radialGradient>
+                        <radialGradient id="grad-9370DB">
+                            <stop offset="0%" stop-color="#9370DB" />
+                            <stop offset="100%" stop-color="#9370DB" />
+                        </radialGradient>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const PEG_COLORS = [
+            { name: "White", value: "#FFFFFF" },
+            { name: "Hot Pink", value: "#FF69B4" },
+            { name: "Red", value: "#FF0000" },
+            { name: "Orange", value: "#FFA500" },
+            { name: "Gold", value: "#FFD700" },
+            { name: "Lawn Green", value: "#7CFC00" },
+            { name: "Deep Sky Blue", value: "#00BFFF" },
+            { name: "Medium Purple", value: "#9370DB" },
+        ];
+
+        // State
+        let selectedColor = "#FFFFFF";
+        let board = [];
+        let dimensions = { rows: 1, cols: 1 };
+        let pegSize = 20;
+        let gap = 4;
+
+        // Helper functions
+        function createEmptyBoard(rows, cols) {
+            return Array.from({ length: rows }, () => Array(cols).fill(null));
+        }
+
+        function calculatePegGrid(containerWidth, containerHeight, pegDiameter = 2, gapSize = 0.2) {
+            const svhToPx = window.innerHeight / 100;
+            const pegSizePx = pegDiameter * svhToPx;
+            const gapPx = gapSize * svhToPx;
+
+            const cols = Math.floor((containerWidth - gapPx) / (pegSizePx + gapPx));
+            const rows = Math.floor((containerHeight - gapPx) / (pegSizePx + gapPx));
+
+            return { rows: Math.max(1, rows), cols: Math.max(1, cols) };
+        }
+
+        function updateDimensions() {
+            const container = document.getElementById('boardContainer');
+            if (container) {
+                const rect = container.getBoundingClientRect();
+                const svhToPx = window.innerHeight / 100;
+                const pegSizePx = 2 * svhToPx;
+                const gapPx = 0.2 * svhToPx;
+
+                pegSize = pegSizePx;
+                gap = gapPx;
+
+                const newDimensions = calculatePegGrid(rect.width, rect.height, 2, 0.2);
+                dimensions = newDimensions;
+
+                board = createEmptyBoard(dimensions.rows, dimensions.cols);
+                renderBoard();
+            }
+        }
+
+        function renderBoard() {
+            const svg = document.getElementById('boardSvg');
+            const width = dimensions.cols * (pegSize + gap) + gap;
+            const height = dimensions.rows * (pegSize + gap) + gap;
+
+            svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+            // Clear existing pegs
+            const existingPegs = svg.querySelectorAll('.peg-circle');
+            existingPegs.forEach(peg => peg.remove());
+
+            // Render pegs
+            for (let y = 0; y < dimensions.rows; y++) {
+                for (let x = 0; x < dimensions.cols; x++) {
+                    const cx = x * (pegSize + gap) + pegSize / 2 + gap;
+                    const cy = y * (pegSize + gap) + pegSize / 2 + gap;
+                    const pegColor = board[y][x];
+
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('cx', cx);
+                    circle.setAttribute('cy', cy);
+                    circle.setAttribute('r', pegSize / 2);
+                    circle.setAttribute('stroke-width', '2');
+                    circle.classList.add('peg-circle');
+
+                    if (pegColor) {
+                        circle.setAttribute('fill', `url(#grad-${pegColor.substring(1)})`);
+                        circle.style.filter = `drop-shadow(0 0 8px ${pegColor})`;
+                        circle.classList.add('peg');
+                    } else {
+                        circle.setAttribute('fill', 'url(#grad-hole)');
+                        circle.classList.add('peg-hole');
+                    }
+
+                    circle.addEventListener('click', () => handlePegClick(y, x));
+                    circle.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                    });
+                    circle.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        handlePegClick(y, x);
+                    });
+
+                    svg.appendChild(circle);
+                }
+            }
+        }
+
+        function handlePegClick(row, col) {
+            board[row][col] = board[row][col] === selectedColor ? null : selectedColor;
+            renderBoard();
+        }
+
+        function clearBoard() {
+            board = createEmptyBoard(dimensions.rows, dimensions.cols);
+            renderBoard();
+        }
+
+        function handleColorSelect(color) {
+            selectedColor = color;
+
+            // Update button states
+            document.querySelectorAll('.color-button').forEach(button => {
+                button.classList.remove('selected');
+                if (button.dataset.color === color) {
+                    button.classList.add('selected');
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set up color buttons
+            document.querySelectorAll('.color-button').forEach(button => {
+                const color = button.dataset.color;
+                button.style.background = `radial-gradient(circle at 35% 35%, white, ${color} 90%)`;
+
+                button.addEventListener('click', () => handleColorSelect(color));
+                button.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                });
+            });
+
+            // Initial setup
+            updateDimensions();
+
+            // Handle resize
+            window.addEventListener('resize', updateDimensions);
+        });
+    </script>
+</body>
+
+</html>
